@@ -5,7 +5,7 @@ const theme = extendTheme({
     Heading: {
       baseStyle: {
         fontFamily: "Heading",
-        color: "rgba(64, 64, 64, 1)",
+        color: "hsl(206, 19%, 17%)",
       },
     },
     Text: {
@@ -115,14 +115,16 @@ const theme = extendTheme({
       100: "rgba(249, 249, 249, 1)",
       200: "rgba(204, 204, 204, 1)",
       300: "rgba(188, 188, 188, 1)",
-      400: "rgba(64, 64, 64, 1)",
+      400: "hsl(206, 19%, 17%)",
+      500: "rgba(64, 64, 64, 1)",
     },
     brandRed: {
       400: "rgba(255, 0, 0, 1)",
     },
-    brandBlue: {
-      400: "rgba(255, 0, 0, 1)",
-      500: "rgba(66, 119, 255, 1)",
+    brandBone: {
+      400: "rgba(236, 226, 208)",
+      500: "rgb(167, 117, 77)",
+      600: "rgb(156, 117, 77)",
     },
   },
 
