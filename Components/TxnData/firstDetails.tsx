@@ -32,6 +32,7 @@ const FirstDetails = () => {
         <Text
           color={"brandBone.400"}
           fontFamily="Body-SemiBold"
+          fontSize={"0.875rem"}
           bg={"brandGreen.400"}
           borderRadius={"3px"}
           padding={"0.15rem 0.5rem"}
@@ -65,6 +66,7 @@ const FirstDetails = () => {
             <Text
               as={"span"}
               fontFamily={"Body-SemiBold"}
+              fontSize={"0.875rem"}
               color={"brandBone.400"}
               bg={"brandGreen.400"}
               padding={"0.15rem 0.5rem"}

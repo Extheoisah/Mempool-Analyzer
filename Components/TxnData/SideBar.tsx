@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { CloseIcon, TriangleDownIcon } from "@chakra-ui/icons";
-import { Box, Text, VStack, Flex } from "@chakra-ui/react";
+import { } from "react";
+import { CloseIcon } from "@chakra-ui/icons";
+import { Box, VStack } from "@chakra-ui/react";
 import LoadingSpinner from "../LoadingSpinner";
 import { motion } from "framer-motion";
-import { truncate } from "../../utils/reusableFunctions";
 import FirstDetails from "./firstDetails";
 import TxnData from "./TxnData";
 import OtherDetails from "./OtherDetails";
@@ -40,7 +39,9 @@ const SideBar = (props: Props) => {
           //   margin={"0 auto 0 0"}
           top={"0"}
           bottom={"0"}
+          minH={"100vh"}
           w={["100%", "415px"]}
+          overflowY={"auto"}
           padding={"1rem"}
         >
           <Box w={"100%"}>

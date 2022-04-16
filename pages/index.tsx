@@ -1,5 +1,5 @@
-import { useState } from "react";
-import type { NextPage } from "next";
+import { useContext, useEffect, useState } from "react";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { Box, Flex } from "@chakra-ui/react";
 
@@ -8,19 +8,21 @@ import SearchTxn from "../Components/SearchTxn";
 import TxnFeeRate from "../Components/TxnFeeRate";
 import SideBar from "../Components/TxnData/SideBar";
 import { AnimatePresence, motion } from "framer-motion";
+import axios from "../axios/axios";
+import { AppContext } from "../context";
+import LatestTxns from "../Components/LatestTxns";
 
 const MotionBox = motion(Box);
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ rawData, error }: any) => {
+  const { setTxnIdList, setTxnData }: any = useContext(AppContext);
   const [openSideBar, setOpenSideBar] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [animateValue, setAnimateValue] = useState("0")
 
-  // useEffect(() => {
-  //   if (!openSideBar) {
-  //     setAnimateValue("0%")
-  //   }
-  // }, [openSideBar])
+  useEffect(() => {
+    setTxnIdList(Object.keys(rawData?.txn_ids));
+    setTxnData(Object.values(rawData?.txn_ids));
+  }, [rawData, setTxnIdList, setTxnData, error]);
 
   return (
     <Box bg={"brandGrey.400"}>
@@ -63,6 +65,17 @@ const Home: NextPage = () => {
             setLoading={setLoading}
           />
         </Flex>
+        <Flex
+          flexDir={["column", null, "row"]}
+          align={"start"}
+          justify="space-between"
+          columnGap={"5rem"}
+          rowGap={"1rem"}
+          padding={"2rem 1rem"}
+        >
+          <LatestTxns />
+          <Box>hi</Box>
+        </Flex>
       </MotionBox>
       <AnimatePresence>
         {openSideBar && (
@@ -79,3 +92,40 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const res = await axios.get("mempool-data");
+  const data = await res?.data;
+  if (!data) {
+    return { notFound: true };
+  }
+  // let data;
+  // try {
+  //   const res = await axios.get("mempool-data");
+  //   data = await res?.data;
+  //   return {
+  //     props: {
+  //       rawData: data,
+  //     },
+  //   };
+  // } catch (error) {
+  //   console.log(error);
+  //   let err = new Error("Connection Failed!");
+  //   return {
+  //     props: {
+  //       rawData: [],
+  //       error: err,
+  //     },
+  //   };
+  // }
+
+  // setInterval(() => {
+  //   getServerSideProps(context);
+  // }, 1200000);
+
+  return {
+    props: {
+      rawData: data,
+    },
+  };
+};

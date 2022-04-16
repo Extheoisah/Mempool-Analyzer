@@ -12,8 +12,6 @@ const TxnFeeRate = () => {
         borderRadius={"3px"}
         align={"center"}
         justify={"space-evenly"}
-        // borderWidth={"1px"}
-        // borderColor={"brandBone.500"}
         padding={"0.75rem 0"}
         boxShadow={"base"}
       >

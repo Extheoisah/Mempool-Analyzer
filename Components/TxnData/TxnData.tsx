@@ -18,13 +18,13 @@ const TxnData = () => {
         borderColor={"brandBone.500"}
         padding={"0.5rem"}
         pos={"relative"}
-        margin={"1.5rem 0 0.5rem 0"}
+        margin={"2rem 0 0.5rem 0"}
         w={"100%"}
       >
         <Text
           color={"brandBone.500"}
           pos={"absolute"}
-          top={"-7%"}
+          top={"-4%"}
           left={"3%"}
           bg={"brandGrey.400"}
           padding={"0 0.25rem"}
@@ -63,7 +63,7 @@ const TxnData = () => {
               ? "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986"
               : truncate(
                   "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986",
-                  43
+                  40
                 )}
           </Text>
         </Box>
@@ -97,7 +97,7 @@ const TxnData = () => {
               ? "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986"
               : truncate(
                   "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986",
-                  43
+                  40
                 )}
           </Text>
         </Box>
@@ -131,7 +131,7 @@ const TxnData = () => {
               ? "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986"
               : truncate(
                   "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986",
-                  43
+                  40
                 )}
           </Text>
         </Box>
