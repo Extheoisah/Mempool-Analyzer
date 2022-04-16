@@ -2,17 +2,18 @@ This is an app that visualizes the mempool activities in bitcoin core.
 The main branch contains the client side (frontend code) and the server branch contains the endpoints (backend code).
 
 #### Languages:
-            -   Typescript
-            -   Rust
+            -   Typescript (client)
+            -   Rust (server)
 
 #### Libraries:
-            -   Nextjs
-            -   Chakra UI
-            -   ChartJs
-            -   bitcoinrpc
-            -   bitcoinrpc-json
-            -   Serde
-            -   Rocket
+            -   Nextjs (client)
+            -   Chakra UI (client)
+            -   ChartJs (client)
+            -   Framer motion (client)
+            -   bitcoinrpc (server)
+            -   bitcoinrpc-json (server)
+            -   Serde (server)
+            -   Rocket (server)
 
 ## Getting Started
 

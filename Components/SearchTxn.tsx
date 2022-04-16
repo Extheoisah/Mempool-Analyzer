@@ -1,4 +1,4 @@
-import { Search2Icon } from "@chakra-ui/icons";
+import {} from "react";
 import {
   Box,
   FormControl,
@@ -7,15 +7,29 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import {} from "react";
+import { Search2Icon } from "@chakra-ui/icons";
 
-const SearchTxn = () => {
+interface Props {
+  loading: boolean,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SearchTxn = ({ setOpenSideBar, loading, setLoading }: Props) => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (loading) return
+    setLoading(true)
+    
+    setOpenSideBar(true);
+  };
+
   return (
     <Box width={"100%"}>
       <Heading fontSize={"1rem"} textAlign={"left"}>
         Search
       </Heading>
-      <FormControl margin={"0.5rem 0"}>
+      <FormControl margin={"0.5rem 0"} onSubmit={handleSubmit}>
         <InputGroup>
           <Input
             borderColor={"brandBone.500"}
@@ -26,6 +40,7 @@ const SearchTxn = () => {
             }}
           />
           <InputRightElement
+          onClick={handleSubmit}
             cursor={"pointer"}
             bg={"brandBone.500"}
             borderTopRightRadius={"3px"}
