@@ -17,6 +17,14 @@ The main branch contains the client side (frontend code) and the server branch c
 
 ## Getting Started
 
+#### Note:
+    This app works with Bitcoin core, So you must have it running on your machine.
+    Before running the server, modify your bitcoin.conf file to use the following rpc configurations:
+    ```
+    rpcuser=lnd
+    rpcpassword=lightning
+    ```
+
 First, run the backend server:
 
 ```bash

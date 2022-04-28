@@ -1,4 +1,4 @@
-import {} from "react";
+import { useContext, useState } from "react";
 import {
   Box,
   FormControl,
@@ -8,20 +8,35 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
+import { AppContext } from "../context";
 
 interface Props {
-  loading: boolean,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SearchTxn = ({ setOpenSideBar, loading, setLoading }: Props) => {
-  const handleSubmit = (e: any) => {
+  const { setSingleTxnData, getTxnData }: any = useContext(AppContext);
+  const [value, setValue] = useState(""); // @ts ignore no error in operation, although error appears
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (loading) return
-    setLoading(true)
-    
+    if (loading) return;
+
+    setLoading(true);
+    setSingleTxnData(value);
     setOpenSideBar(true);
+
+    try {
+      getTxnData(value)
+    } catch (error) {
+      console.log(error)
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
   };
 
   return (
@@ -32,6 +47,9 @@ const SearchTxn = ({ setOpenSideBar, loading, setLoading }: Props) => {
       <FormControl margin={"0.5rem 0"} onSubmit={handleSubmit}>
         <InputGroup>
           <Input
+            name="txn_id"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
             borderColor={"brandBone.500"}
             placeholder="Enter transaction id"
             _placeholder={{
@@ -40,7 +58,7 @@ const SearchTxn = ({ setOpenSideBar, loading, setLoading }: Props) => {
             }}
           />
           <InputRightElement
-          onClick={handleSubmit}
+            onClick={handleSubmit}
             cursor={"pointer"}
             bg={"brandBone.500"}
             borderTopRightRadius={"3px"}

@@ -76,7 +76,7 @@ const SideBar = (props: Props) => {
             {/* Other txn data */}
             <OtherDetails/>
 
-            {!loading && <LoadingSpinner />}
+            {loading && <LoadingSpinner />}
           </Box>
         </MotionBox>
       )}

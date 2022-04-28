@@ -1,8 +1,10 @@
-import {} from "react";
+import { useContext } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { truncate } from "../../utils/reusableFunctions";
+import { AppContext } from "../../context";
 
 const FirstDetails = () => {
+  const {singleTxnData}: any= useContext(AppContext)
   return (
     <>
       <Flex justify={"space-between"} align={"flex-end"} margin={"1.5rem 0"}>
