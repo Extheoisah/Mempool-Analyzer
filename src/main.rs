@@ -9,7 +9,6 @@ use bitcoincore_rpc::{
     json::{self, GetMempoolEntryResult},
     Auth, Client, RpcApi,
 };
-use std::path::PathBuf;
 
 use rocket::http::{Header, Status};
 use rocket::{
@@ -20,7 +19,6 @@ use rocket::{
 use rocket::{Request, Response};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, vec};
-// use serde_json::{json, Result};
 
 lazy_static! {
     // Default Auth and configurations for already loaded wallet
@@ -115,10 +113,8 @@ fn fetch_txn_data(txn_id: Json<TxnInput>) -> Json<json::GetMempoolEntryResult> {
 }
 
 #[options("/txn-data")]
-fn send_txn_data_options(path: PathBuf) -> Response<'static> {
-    let mut res = Response::new();
-    res.set_status(Status::new(200));
-    res
+fn send_txn_data_options() -> Status {
+    Status::new(200)
 }
 
 #[launch]
@@ -126,6 +122,6 @@ fn rocket() -> Rocket<Build> {
     //computes all routes for launch to server
     rocket::build().attach(CORS).mount(
         "/",
-        routes![index, fetch_mempool_data, fetch_txn_data],
+        routes![index, fetch_mempool_data, fetch_txn_data, send_txn_data_options],
     )
 }
