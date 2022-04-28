@@ -9,8 +9,9 @@ use bitcoincore_rpc::{
     json::{self, GetMempoolEntryResult},
     Auth, Client, RpcApi,
 };
+use std::path::PathBuf;
 
-use rocket::http::Header;
+use rocket::http::{Header, Status};
 use rocket::{
     fairing::{Fairing, Info, Kind},
     serde::json::Json,
@@ -113,10 +114,11 @@ fn fetch_txn_data(txn_id: Json<TxnInput>) -> Json<json::GetMempoolEntryResult> {
     Json(data)
 }
 
-#[post("/tx-id", data = "<txn_id>", format = "application/json")]
-fn fetch_txn(txn_id: Json<TxnInput>) -> Json<TxnInput> {
-    let txid: String = txn_id.txn_id.clone();
-    Json(TxnInput { txn_id: txid })
+#[options("/txn-data")]
+fn send_txn_data_options(path: PathBuf) -> Response<'static> {
+    let mut res = Response::new();
+    res.set_status(Status::new(200));
+    res
 }
 
 #[launch]
@@ -124,6 +126,6 @@ fn rocket() -> Rocket<Build> {
     //computes all routes for launch to server
     rocket::build().attach(CORS).mount(
         "/",
-        routes![index, fetch_mempool_data, fetch_txn_data, fetch_txn],
+        routes![index, fetch_mempool_data, fetch_txn_data],
     )
 }
