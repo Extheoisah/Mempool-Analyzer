@@ -23,7 +23,7 @@ use std::{collections::HashMap, vec};
 lazy_static! {
     // Default Auth and configurations for already loaded wallet
     static ref RPC: Client = Client::new(
-        &"http://localhost:38332".to_string(),
+        &"http://localhost:18332".to_string(),
         Auth::UserPass("lnd".to_string(), "lightning".to_string()),
     )
     .unwrap();
