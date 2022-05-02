@@ -17,7 +17,8 @@ interface Props {
 }
 
 const SearchTxn = ({ setOpenSideBar, loading, setLoading }: Props) => {
-  const { setSingleTxnData, getTxnData }: any = useContext(AppContext);
+  const { setSingleTxnId, getTxnData }: any =
+    useContext(AppContext);
   const [value, setValue] = useState(""); // @ts ignore no error in operation, although error appears
 
   const handleSubmit = async (e: any) => {
@@ -25,18 +26,11 @@ const SearchTxn = ({ setOpenSideBar, loading, setLoading }: Props) => {
     if (loading) return;
 
     setLoading(true);
-    setSingleTxnData(value);
+    setSingleTxnId(value);
+    
+    getTxnData(value);
     setOpenSideBar(true);
-
-    try {
-      getTxnData(value)
-    } catch (error) {
-      console.log(error)
-    }
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
+    setLoading(false);
   };
 
   return (
@@ -50,6 +44,7 @@ const SearchTxn = ({ setOpenSideBar, loading, setLoading }: Props) => {
             name="txn_id"
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            fontFamily={"Body-Regular"}
             borderColor={"brandBone.500"}
             placeholder="Enter transaction id"
             _placeholder={{

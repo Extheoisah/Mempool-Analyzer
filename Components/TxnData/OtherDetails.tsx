@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { AppContext } from "../../context";
 
 const OtherDetails = () => {
+  const { singleTxnData }: any = useContext(AppContext);
+
   return (
     <>
       <Box
@@ -34,7 +37,7 @@ const OtherDetails = () => {
               color={"brandBone.400"}
               fontFamily={"Body-SemiBold"}
             >
-              86128
+              {singleTxnData?.height}
             </Text>
           </Flex>
           <Flex align={"center"} columnGap={"1rem"} marginBottom={"0.5rem"}>
@@ -46,7 +49,7 @@ const OtherDetails = () => {
               color={"brandBone.400"}
               fontFamily={"Body-SemiBold"}
             >
-              609
+               {singleTxnData?.weight}
             </Text>
           </Flex>
           <Flex align={"center"} columnGap={"1rem"} marginBottom={"0.5rem"}>
@@ -58,7 +61,7 @@ const OtherDetails = () => {
               color={"brandBone.400"}
               fontFamily={"Body-SemiBold"}
             >
-              153
+               {singleTxnData?.vsize}
             </Text>
           </Flex>
         </Box>

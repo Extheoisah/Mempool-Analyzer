@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TriangleDownIcon } from "@chakra-ui/icons";
 import { Box, Text } from "@chakra-ui/react";
 import { truncate } from "../../utils/reusableFunctions";
+import { AppContext } from "../../context";
 
 const TxnData = () => {
+  const { singleTxnData }: any = useContext(AppContext);
+
   const [show, setShow] = useState({
     inputs: false,
     outputs: false,
@@ -128,9 +131,9 @@ const TxnData = () => {
             padding={"0.35rem 0.5rem"}
           >
             {show.witness
-              ? "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986"
+              ? singleTxnData.wtxid || "No witness data"
               : truncate(
-                  "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986",
+                singleTxnData.wtxid || "No witness data",
                   40
                 )}
           </Text>

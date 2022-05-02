@@ -7,11 +7,27 @@ import { truncate } from "../utils/reusableFunctions";
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
 
-const LatestTxns = () => {
-  const { txnIdList }: any = useContext(AppContext);
+interface Props {
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LatestTxns = (props: Props) => {
+  const { loading, setLoading, setOpenSideBar } = props;
+  const { txnIdList, getSingleTxnData }: any = useContext(AppContext);
   const [show, setShow] = useState(false);
 
   const slicedList = txnIdList.slice(0, 10);
+
+  const handleClick = (txn_id: string) => {
+    if (loading) return;
+    setLoading(true);
+    getSingleTxnData(txn_id);
+    setOpenSideBar(true);
+    setLoading(false);
+  };
+
   return (
     <MotionBox layout>
       <Heading color={"brandGrey.400"} fontSize={"1rem"} textAlign={"left"}>
@@ -42,6 +58,7 @@ const LatestTxns = () => {
 
                 {/* For mobile screens */}
                 <Text
+                  onClick={() => handleClick(txn_id)}
                   as={"li"}
                   d={["initial", null, null, "none"]}
                   color={"brandGrey.500"}
@@ -53,6 +70,7 @@ const LatestTxns = () => {
                 </Text>
                 {/* For desktop screens only */}
                 <Text
+                  onClick={() => handleClick(txn_id)}
                   as={"li"}
                   d={["none", null, null, "initial"]}
                   color={"brandGrey.500"}
@@ -87,6 +105,7 @@ const LatestTxns = () => {
 
                 {/* For mobile screens */}
                 <Text
+                  onClick={() => handleClick(txn_id)}
                   as={"li"}
                   d={["initial", null, null, "none"]}
                   color={"brandGrey.500"}
@@ -99,6 +118,7 @@ const LatestTxns = () => {
                 </Text>
                 {/* For desktop screens only */}
                 <Text
+                  onClick={() => handleClick(txn_id)}
                   as={"li"}
                   d={["none", null, null, "initial"]}
                   color={"brandGrey.500"}
@@ -126,7 +146,7 @@ const LatestTxns = () => {
             No data
           </Text>
         )}
-        {(!show && txnIdList.length > 0 && txnIdList.length > 10) ? (
+        {!show && txnIdList.length > 0 && txnIdList.length > 10 ? (
           <Text
             onClick={() => setShow(!show)}
             textAlign={"center"}

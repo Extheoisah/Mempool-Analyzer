@@ -23,6 +23,9 @@ The main branch contains the client side (frontend code) and the server branch c
     ```
     rpcuser=lnd
     rpcpassword=lightning
+
+    [signet]
+    rpcport=18332
     ```
 
 First, run the backend server:

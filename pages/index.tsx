@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import axios from "../axios/axios";
 import { AppContext } from "../context";
 import LatestTxns from "../Components/LatestTxns";
+import { LineChart } from "../Components/LineChart";
 
 const MotionBox = motion(Box);
 
@@ -21,7 +22,7 @@ const Home: NextPage = ({ rawData, error }: any) => {
 
   useEffect(() => {
     setTxnIdList(Object.keys(rawData?.txn_ids));
-    setTxnData(Object.values(rawData?.txn_ids));
+    setTxnData(rawData?.txn_ids);
   }, [rawData, setTxnIdList, setTxnData, error]);
 
   return (
@@ -69,12 +70,18 @@ const Home: NextPage = ({ rawData, error }: any) => {
           flexDir={["column", null, "row"]}
           align={"start"}
           justify="space-between"
-          columnGap={"5rem"}
+          columnGap={"1rem"}
           rowGap={"1rem"}
           padding={"2rem 1rem"}
         >
-          <LatestTxns />
-          <Box>hi</Box>
+          <LatestTxns
+            setOpenSideBar={setOpenSideBar}
+            loading={loading}
+            setLoading={setLoading}
+          />
+          <Box w={"100%"} maxW={"500px"}>
+            <LineChart/>
+          </Box>
         </Flex>
       </MotionBox>
       <AnimatePresence>
@@ -99,30 +106,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!data) {
     return { notFound: true };
   }
-  // let data;
-  // try {
-  //   const res = await axios.get("mempool-data");
-  //   data = await res?.data;
-  //   return {
-  //     props: {
-  //       rawData: data,
-  //     },
-  //   };
-  // } catch (error) {
-  //   console.log(error);
-  //   let err = new Error("Connection Failed!");
-  //   return {
-  //     props: {
-  //       rawData: [],
-  //       error: err,
-  //     },
-  //   };
-  // }
-
-  // setInterval(() => {
-  //   getServerSideProps(context);
-  // }, 1200000);
-
   return {
     props: {
       rawData: data,

@@ -4,7 +4,15 @@ import { truncate } from "../../utils/reusableFunctions";
 import { AppContext } from "../../context";
 
 const FirstDetails = () => {
-  const {singleTxnData}: any= useContext(AppContext)
+  const { singleTxnData, singleTxnId }: any = useContext(AppContext);
+
+  const timeStamp = new Date(singleTxnData?.time * 1000);
+  let hours = timeStamp.getHours();
+  let minutes = "0" + timeStamp.getMinutes();
+
+  // Will display time in 10:30:23 format
+  let formattedTime = hours + ":" + minutes.substr(-2);
+
   return (
     <>
       <Flex justify={"space-between"} align={"flex-end"} margin={"1.5rem 0"}>
@@ -26,18 +34,17 @@ const FirstDetails = () => {
             borderRadius={"3px"}
             padding="0.5rem"
           >
-            {truncate(
-              "fa09f22a45f55c7fc9ec8bb9469c89018a5543ea220d33a236e99dbfc4a42f96"
-            )}
+            {truncate(singleTxnId)}
           </Text>
         </Box>
         <Text
           color={"brandBone.400"}
           fontFamily="Body-SemiBold"
-          fontSize={"0.875rem"}
-          bg={"brandGreen.400"}
+          fontSize={"0.75rem"}
+          bg={singleTxnData?.unbroadcast ? "brandRed" : "brandGreen.400"}
           borderRadius={"3px"}
           padding={"0.15rem 0.5rem"}
+          textDecor={singleTxnData?.unbroadcast ? "line-through" : ""}
         >
           Confirmed
         </Text>
@@ -60,7 +67,7 @@ const FirstDetails = () => {
               color={"brandBone.400"}
               fontFamily={"Body-Medium"}
             >
-              12:00PM
+              {formattedTime}
             </Text>
           </Text>
           <Text color={"brandBone.500"}>
@@ -70,9 +77,16 @@ const FirstDetails = () => {
               fontFamily={"Body-SemiBold"}
               fontSize={"0.875rem"}
               color={"brandBone.400"}
-              bg={"brandGreen.400"}
+              bg={
+                singleTxnData?.["bip125-replaceable"]
+                  ? "brandGreen.400"
+                  : "brandRed.400"
+              }
               padding={"0.15rem 0.5rem"}
               borderRadius={"3px"}
+              textDecor={
+                singleTxnData?.["bip125-replaceable"] ? "" : "line-through"
+              }
             >
               RBF
             </Text>
@@ -80,10 +94,11 @@ const FirstDetails = () => {
               as={"span"}
               fontFamily={"Body-SemiBold"}
               color={"brandBone.400"}
-              bg={"brandGreen.400"}
+              bg={singleTxnData?.wtxid ? "brandGreen.400" : "brandRed.400"}
               padding={"0.15rem 0.5rem"}
               marginLeft={"0.5rem"}
               borderRadius={"3px"}
+              textDecor={singleTxnData?.wtxid.length ? "" : "line-through"}
             >
               Segwit
             </Text>
@@ -97,7 +112,7 @@ const FirstDetails = () => {
               color={"brandBone.400"}
               fontFamily={"Body-Medium"}
             >
-              4 sat/vB
+              {singleTxnData?.fees?.base*100000000} sat/vB
             </Text>
           </Text>
         </Box>
