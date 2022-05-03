@@ -6,6 +6,8 @@ import { AppContext } from "../../context";
 
 const TxnData = () => {
   const { singleTxnData }: any = useContext(AppContext);
+  console.log(singleTxnData?.depends);
+  console.log(singleTxnData?.spentby);
 
   const [show, setShow] = useState({
     inputs: false,
@@ -53,22 +55,37 @@ const TxnData = () => {
               }}
             />
           </Text>
-          <Text
-            as={"li"}
-            // listStyleType={"lower-roman"}
-            fontSize={"0.875rem"}
-            bg="brandGrey.500"
-            borderRadius={"3px"}
-            color={"brandBone.400"}
-            padding={"0.35rem 0.5rem"}
-          >
-            {show.inputs
-              ? "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986"
-              : truncate(
-                  "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986",
-                  40
-                )}
-          </Text>
+          {singleTxnData?.depends > 0 ? (
+            singleTxnData?.spentby.map((x: string, i: number) => (
+              <Text
+                key={i}
+                as={"li"}
+                fontSize={"0.875rem"}
+                bg="brandGrey.500"
+                borderRadius={"3px"}
+                color={"brandBone.400"}
+                padding={"0.35rem 0.5rem"}
+              >
+                {show.inputs
+                  ? x
+                  : truncate(
+                      x,
+                      40
+                    )}
+              </Text>
+            ))
+          ) : (
+            <Text
+              as={"li"}
+              fontSize={"0.875rem"}
+              bg="brandGrey.500"
+              borderRadius={"3px"}
+              color={"brandBone.400"}
+              padding={"0.35rem 0.5rem"}
+            >
+              No inputs!
+            </Text>
+          )}
         </Box>
         <Box padding={"0.5rem 0"}>
           <Text color={"brandBone.500"} marginBottom={"0.25rem"}>
@@ -88,21 +105,37 @@ const TxnData = () => {
               }}
             />
           </Text>
-          <Text
-            as={"li"}
-            fontSize={"0.875rem"}
-            bg="brandGrey.500"
-            borderRadius={"3px"}
-            color={"brandBone.400"}
-            padding={"0.35rem 0.5rem"}
-          >
-            {show.outputs
-              ? "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986"
-              : truncate(
-                  "6072efc612c69e6761667701409c91f3fc5108b7872997c829da676166e04986",
-                  40
-                )}
-          </Text>
+          {singleTxnData?.spendsby > 0 ? (
+            singleTxnData?.spentby.map((x: string, i: number) => (
+              <Text
+                key={i}
+                as={"li"}
+                fontSize={"0.875rem"}
+                bg="brandGrey.500"
+                borderRadius={"3px"}
+                color={"brandBone.400"}
+                padding={"0.35rem 0.5rem"}
+              >
+                {show.outputs
+                  ? x
+                  : truncate(
+                      x,
+                      40
+                    )}
+              </Text>
+            ))
+          ) : (
+            <Text
+              as={"li"}
+              fontSize={"0.875rem"}
+              bg="brandGrey.500"
+              borderRadius={"3px"}
+              color={"brandBone.400"}
+              padding={"0.35rem 0.5rem"}
+            >
+              No outputs!
+            </Text>
+          )}
         </Box>
         <Box padding={"0.5rem 0"}>
           <Text color={"brandBone.500"} marginBottom={"0.25rem"}>
@@ -132,10 +165,7 @@ const TxnData = () => {
           >
             {show.witness
               ? singleTxnData.wtxid || "No witness data"
-              : truncate(
-                singleTxnData.wtxid || "No witness data",
-                  40
-                )}
+              : truncate(singleTxnData.wtxid || "No witness data", 40)}
           </Text>
         </Box>
       </Box>

@@ -40,7 +40,6 @@ export function LineChart() {
   const sortedTimeStamp = timeStamp.sort((a, b) => {
     return a > b ? 1 : a === b ? 0 : -1;
   });
-  console.log(time);
 
   const options = {
     responsive: true,

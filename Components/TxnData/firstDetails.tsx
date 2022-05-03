@@ -9,9 +9,10 @@ const FirstDetails = () => {
   const timeStamp = new Date(singleTxnData?.time * 1000);
   let hours = timeStamp.getHours();
   let minutes = "0" + timeStamp.getMinutes();
+  let meridian = hours < 12 ? "AM" : "PM"
 
   // Will display time in 10:30:23 format
-  let formattedTime = hours + ":" + minutes.substr(-2);
+  let formattedTime = hours + ":" + minutes.substr(-2) + meridian;
 
   return (
     <>
